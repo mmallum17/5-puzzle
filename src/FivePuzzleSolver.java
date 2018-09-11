@@ -1,4 +1,5 @@
 import java.util.LinkedList;
+import java.util.Scanner;
 
 /**
  * Created by Marcus on 9/6/2018.
@@ -17,12 +18,51 @@ public class FivePuzzleSolver {
     private static LinkedList<String> exploredStates = new LinkedList<String>();
 
     public static void main(String[] args) {
-        String initialState = "431502";
-        int result = iterativeDeepeningSearch(initialState);
-        System.out.println(result);
-        if(result == SOLUTION) {
-            displayPath(goalNode);
+        String initialState = getInitialState();
+        boolean validInitialState = validateInitialState(initialState);
+
+        // If initial state is valid, solve the puzzle. Else, end program
+        if(validInitialState) {
+            System.out.println("Goal State is " + GOAL_STATE);
+
+            int result = iterativeDeepeningSearch(initialState);
+
+            // If result is solvable, print out the path. Else, display "No solution"
+            if(result == SOLUTION) {
+                System.out.print("Solution: ");
+                displayPath(goalNode);
+            }
+            else {
+                System.out.println("No Solution");
+            }
         }
+        else {
+            System.out.println("Input for the initial state is invalid");
+        }
+    }
+
+    private static String getInitialState() {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Please enter in the initial state (Ex: '013254'): ");
+        String input = scanner.nextLine();
+
+        return input;
+    }
+
+    private static boolean validateInitialState(String initialState) {
+        boolean valid = true;
+        if(initialState.length() != 6) {
+            valid = false;
+        }
+        else {
+            for(int i = 0; i <= 5; i++) {
+                if(!initialState.contains(Integer.toString(i))) {
+                    valid = false;
+                }
+            }
+        }
+        return valid;
     }
 
     private static int iterativeDeepeningSearch(String initialState) {

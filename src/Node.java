@@ -1,5 +1,10 @@
 /**
- * Created by Marcus on 9/6/2018.
+ * The Node class represents a state in the 5-puzzle problem.
+ * It holds the state, parent node, action, and depth.
+ *
+ * File: Node.java
+ * Author: Marcus Mallum
+ * Date: 9/11/2018
  */
 public class Node {
     String state;
